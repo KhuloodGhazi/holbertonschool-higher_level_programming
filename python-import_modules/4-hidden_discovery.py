@@ -1,7 +1,20 @@
 #!/usr/bin/python3
-if __name__ == "__main__":
-    import hidden_4
+import importlib.util
+import sys
+import os
 
-    for name in sorted(dir(hidden_4)):
-        if not name.startswith("__"):
-            print(name)
+def main():
+    module_path = "/tmp/hidden_4.pyc"
+    module_name = "hidden_4"
+
+    spec = importlib.util.spec_from_file_location(module_name, module_path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    names = [name for name in dir(module) if not name.startswith("__")]
+    for name in sorted(names):
+        print(name)
+
+if __name__ == "__main__":
+    main()
+
