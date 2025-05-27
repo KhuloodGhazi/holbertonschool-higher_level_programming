@@ -3,28 +3,19 @@
 Module task_01_duck_typing
 Defines abstract class Shape and concrete classes Circle and Rectangle
 """
-
 from abc import ABC, abstractmethod
 import math
 
-
 class Shape(ABC):
-    """Abstract base class for shapes"""
-
     @abstractmethod
     def area(self):
-        """Calculate the area of the shape"""
         pass
 
     @abstractmethod
     def perimeter(self):
-        """Calculate the perimeter of the shape"""
         pass
 
-
 class Circle(Shape):
-    """Circle class, inherits from Shape"""
-
     def __init__(self, radius):
         self.radius = radius
 
@@ -34,10 +25,7 @@ class Circle(Shape):
     def perimeter(self):
         return 2 * math.pi * self.radius
 
-
 class Rectangle(Shape):
-    """Rectangle class, inherits from Shape"""
-
     def __init__(self, width, height):
         self.width = width
         self.height = height
@@ -48,8 +36,6 @@ class Rectangle(Shape):
     def perimeter(self):
         return 2 * (self.width + self.height)
 
-
 def shape_info(shape):
-    """Print area and perimeter of any shape object using duck typing"""
     print("Area:", shape.area())
     print("Perimeter:", shape.perimeter())
