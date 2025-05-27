@@ -1,16 +1,10 @@
 #!/usr/bin/python3
-"""Defines an inherited list class MyList with a sorted print method.
-"""
+"""Defines a class MyList that inherits from list."""
 
 
 class MyList(list):
-    """A custom list class that inherits from list and adds print_sorted."""
+    """A subclass of list with a method to print the list in sorted order."""
 
     def print_sorted(self):
-        """
-        Prints the list in ascending sorted order.
-        Only works if all elements are integers.
-        """
-        if not all(isinstance(x, int) for x in self):
-            raise TypeError("unorderable types: mixed or non-int elements found")
+        """Prints the list in ascending sorted order."""
         print(sorted(self))
