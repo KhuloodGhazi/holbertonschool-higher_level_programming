@@ -36,6 +36,10 @@ def get_data_from_sql():
 @app.route('/products')
 def index():
     source = request.args.get('source')
+    product_id = request.args.get('id')
+    products = []
+    error = None
+
     if source == 'json':
         products = get_data_from_json()
     elif source == 'csv':
@@ -43,11 +47,25 @@ def index():
     elif source == 'sql':
         products = get_data_from_sql()
         if products is None:
-            return render_template('product_display.html', products=[], error='Database error')
+            error = 'Database error'
     else:
-        return render_template('product_display.html', products=[], error='Wrong source')
-    
-    return render_template('product_display.html', products=products, error=None)
+        error = 'Wrong source'
+
+    # Filter by product_id if provided and no previous error
+    if error is None and product_id:
+        try:
+            product_id = int(product_id)
+            filtered = [p for p in products if int(p['id']) == product_id]
+            if filtered:
+                products = filtered
+            else:
+                products = []
+                error = 'Product not found'
+        except ValueError:
+            products = []
+            error = 'Invalid ID format'
+
+    return render_template('product_display.html', products=products, error=error)
 
 if __name__ == '__main__':
     app.run(debug=True)
