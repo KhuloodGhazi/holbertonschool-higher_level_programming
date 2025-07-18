@@ -33,7 +33,7 @@ def get_data_from_sql():
         print(f"Database error: {e}")
         return None
 
-@app.route('/')
+@app.route('/products')
 def index():
     source = request.args.get('source')
     if source == 'json':
